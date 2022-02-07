@@ -12,9 +12,8 @@ request.onupgradeneeded = function(event) {
 request.onsuccess = function(event) {
     db = event.target.result;
 
-    if(navigator.online) {
-        //need to create 
-        //uploadTransaction();
+    if(navigator.online) { 
+        uploadTransaction();
     }
 };
 
@@ -58,7 +57,7 @@ function uploadTransaction() {
 
                 budgetObjectStore.clear();
 
-                alert('All saved pizza has been submitted!');
+                alert('All saved transactions has been submitted!');
             })
             .catch(err => {
                 console.log(err);

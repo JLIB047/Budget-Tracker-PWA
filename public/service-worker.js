@@ -1,12 +1,13 @@
-const APP_PREFIX = 'BudgetTrackerPWA-';
+const APP_PREFIX = 'Budget-Tracker-PWA-';
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION;
 
 const FILES_TO_CACHE = [
     './index.html',
-    './css/style.css',
-    './js/index/js',
+    './css/styles.css',
+    './js/index.js',
     './js/idb.js',
+    './manifest.json',
     './icons/icon-512x512.png',
     './icons/icon-384x384.png',
     './icons/icon-192x192.png',
@@ -24,19 +25,19 @@ self.addEventListener('install', function (e) {
             return cache.addAll(FILES_TO_CACHE)
         })
     )
-})
+});
 
 self.addEventListener('activate', function (e) {
     e.waitUntil(
         caches.keys().then(function (keyList){
-            let cacheKeepList = keyList.filter(function (key) {
+            let cacheKeeplist = keyList.filter(function (key) {
                 return key.indexOf(APP_PREFIX);
             })
-            cacheKeepList.push(CACHE_NAME);
+            cacheKeeplist.push(CACHE_NAME);
 
             return Promise.all(
                 keyList.map(function(key, i){
-                    if(cacheKeepList.indexOf(key) === -1) {
+                    if(cacheKeeplist.indexOf(key) === -1) {
                         console.log('deleting cache : ' + keyList[i]);
                         return caches.delete(keyList[i]);
                     }
@@ -46,7 +47,7 @@ self.addEventListener('activate', function (e) {
     );
 });
 
-self.addEventListener('fetch', function(e) {
+self.addEventListener('fetch', function (e) {
     console.log('fetch request : ' + e.request.url)
     e.respondWith(
         caches.match(e.request).then(function (request) {
