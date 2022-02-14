@@ -18,7 +18,10 @@ app.use(express.static("public"));
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
+  useFindAndModify: true,
+  useCreateIndex: true,
   useFindAndModify: false
+
 });
 
 // routes
