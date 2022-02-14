@@ -1,4 +1,5 @@
 let db;
+
 const request = indexedDB.open('Budget-Tracker-PWA', 1);
 
 request.onupgradeneeded = function(event) {
@@ -27,7 +28,7 @@ function saveRecord(record) {
     const budgetObjectStore = transaction.objectStore('new_transaction');
 
     budgetObjectStore.add(record);
-};
+}
 
 function uploadTransaction() {
     const transaction = db.transaction(['new_transaction'], 'readwrite');
@@ -57,7 +58,7 @@ function uploadTransaction() {
 
                 budgetObjectStore.clear();
 
-                alert('All saved transactions has been submitted!');
+                alert('All saved transactions have been submitted!');
             })
             .catch(err => {
                 console.log(err);
